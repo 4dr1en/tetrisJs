@@ -1,0 +1,116 @@
+body{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+#container{
+    height: min-content;
+    display: flex;
+    background-color: rgb(241, 241, 215);
+    border: 1px solid black;
+}
+#gameWindows{
+    margin: 20px;
+    background: linear-gradient(rgba(100, 62, 62, 0) 68%, rgba(104, 60, 0, 0.45));
+
+    border-bottom: 2px solid black;
+    border-image-source: linear-gradient( rgba(100, 62, 62, 0) 10%, black 15% );
+    border-left: 2px solid;
+    border-right: 2px solid;
+    border-image-slice: 1;
+    
+}
+#right{
+    font-family: monospace;
+    padding: 1rem;
+}
+#right ul{
+    padding: 0;
+    margin: auto;
+    width: min-content;
+    list-style: none;
+}
+#right li{
+    margin-top: 1.2rem;
+}
+
+#right{
+    font-size: 1.2rem;
+}
+
+#right em{
+    font-style: normal;
+}
+
+#right #time{
+    width: 230px;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+#right #blocks{
+    font-size: 1.3rem;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+#touchScreen{
+    position: absolute;
+    height: 100vh;
+    width: 100vw; 
+}
+#inputTop{
+    position: absolute;
+    top: 0;
+    height: 75vh;
+    width: 100vw;
+}
+#inputBottom{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    height: 25vh;
+    width: 100vw;
+}
+#inputBottom>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33.33%;
+    height: 100%;
+    background-color: rgba(255, 153, 0, 0.185);
+    border: black solid 1px;
+    box-sizing: border-box;
+
+}
+#touchScreen img{
+    width: 40%;
+    min-width: 30px;
+    max-width: 70px;
+}
+#inputRotation, #inputLeft{
+    transform: rotateY(180deg);
+}
+#inputRotation>img{
+    transform: rotate(-10deg);
+}
+
+@media(max-width: 640px){
+    #container{
+        height: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    #right{
+        display: none;
+    }
+}

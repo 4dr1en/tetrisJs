@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="tetris.js" defer></script>
+    <title>Tetris</title>
+</head>
+<body>
+    <div id="container">
+        <div id="canvasSection">
+            <canvas id="gameWindows"></canvas>
+        </div>
+        <div id="right">
+            <p id="time">0</p>
+            <div>Score : <em id="score">0</em></div>
+            <div>Lignes : <em id="rows">0</em></div>
+            <p id="blocks">Blocs suivants</p>
+            <ul>
+                <li><canvas class="nextBlocks"></canvas></li>
+                <li><canvas class="nextBlocks"></canvas></li>
+                <li><canvas class="nextBlocks"></canvas></li>
+            </ul>
+        </div>
+    </div>
+    <div id="touchScreen">
+        <div id="inputTop"></div>
+        <div id="inputBottom">
+            <div id="inputLeft"><img src="arrow.svg" alt=""></div><div id="inputRotation"><img src="rotat.svg" alt=""></div><div id="inputRight"><img src="arrow.svg" alt=""></div>
+        </div>
+    </div>
+    <audio src="tetris.mp3" preload="auto" loop="true" id="backgroundMusic"></audio>
+    <audio src="break.mp3" preload="auto" id="break"></audio>
+    <audio src="gameover.mp3" preload="auto"* id="gameover"></audio>
+</body>
+</html>

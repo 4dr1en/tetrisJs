@@ -71,24 +71,8 @@ function init(){
     displayNextBlocksCanvas();
     displayGameCanvas();
     
-    lastLoopTime=  Date.now();
+    lastLoopTime= Date.now();
     GameLoop();
-}
-
-function loadGradients(){
-    const colors= ["0000FF", "FF0000", "FFFF00", "00FF00", "00FFFF", "800000", "008000", "000080"];
-    for(let i= 0 ; i < colors.length ; i++){
-        let imgCanvas= document.createElement("canvas");
-        imgCanvas.height= SIZE;
-        imgCanvas.width= SIZE;
-        let ctxImg= imgCanvas.getContext('2d');
-        let gradient= ctxImg.createLinearGradient(0, SIZE+SIZE*3,  SIZE+SIZE*2, 0);
-        gradient.addColorStop(0.7, "#" + colors[i]);
-        gradient.addColorStop(1, "#FFF");
-        ctxImg.fillStyle= gradient;
-        ctxImg.fillRect(0, 0, SIZE, SIZE);
-        gradients.push(imgCanvas);       
-    }
 }
 
 function GameLoop(){
@@ -239,7 +223,7 @@ function controlPosition(direction= Direction.BOTTOM){
     rowsFull= [];
 
     if(direction === Direction.TURN_LEFT || direction === Direction.TURN_RIGHT){
-        let newBlock= rotation(currentBlock, direction= Direction.TURN_RIGHT);
+        let newBlock= rotation(direction);
 
         for(let i= 0 ; i < newBlock.length; i++){
             let x= newBlock[i].x;
@@ -449,9 +433,14 @@ function rotationBorderAdaptation(newBlock){
     /*déplace le bloc sur le coté pour éviter d'étre bloqué par un bord*/
     let move= 0;
     for(let i= 0 ; i < newBlock.length; i++){
-        if(newBlock[i].x + move < 0) move++;
-        else if(newBlock[i].x + move >= NB_CASES_X) move--;
+        if(newBlock[i].x < 0 && newBlock[i].x < move
+        ||newBlock[i].x > NB_CASES_X-1 && newBlock[i].x > move){
+            move= newBlock[i].x;
+        }
     }
+    if(move > NB_CASES_X-1) move-= NB_CASES_X-1;
+    move*= -1;
+
     if(move !== 0){
         for(let i= 0 ; i < newBlock.length; i++){
             newBlock[i].x+= move;
@@ -475,6 +464,22 @@ function newBlock(){
     NewBlock.color= Math.floor(Math.random() * gradients.length);
 
     return NewBlock;
+}
+
+function loadGradients(){
+    const colors= ["0000FF", "FF0000", "FFFF00", "00FF00", "00FFFF", "800000", "008000", "000080"];
+    for(let i= 0 ; i < colors.length ; i++){
+        let imgCanvas= document.createElement("canvas");
+        imgCanvas.height= SIZE;
+        imgCanvas.width= SIZE;
+        let ctxImg= imgCanvas.getContext('2d');
+        let gradient= ctxImg.createLinearGradient(0, SIZE+SIZE*3,  SIZE+SIZE*2, 0);
+        gradient.addColorStop(0.7, "#" + colors[i]);
+        gradient.addColorStop(1, "#FFF");
+        ctxImg.fillStyle= gradient;
+        ctxImg.fillRect(0, 0, SIZE, SIZE);
+        gradients.push(imgCanvas);       
+    }
 }
 
 function setNewPosition(NewBlock){
@@ -560,14 +565,12 @@ function touchInput(e){
             break;
         default:
             lsInput.push(13);
-            console.log(e.changedTouches[0].clientY)
             YTouch= e.changedTouches[0].clientY;
             break;
     }
     e.preventDefault();
 }
 function testTouchBottom(e){
-    console.log("test");
     if(YTouch && YTouch+50 < e.changedTouches[0].clientY) lsInput.push(65);
     YTouch= null
 }
